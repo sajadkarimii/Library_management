@@ -1,17 +1,8 @@
-import tkinter
-import pyodbc
-
-conn = pyodbc.connect(
-    r'DRIVER={ODBC Driver 17 for SQL Server};'
-    r'SERVER=SAJAD;'
-    r'DATABASE=Library_management;'
-    r'UID=sa;'
-    r'PWD=s2233943j;'
-)
-
+import sqlite3
+conn = sqlite3.connect("library_mange.db")
+conn.execute("PRAGMA foreign_keys = ON")
 cursor = conn.cursor()
-
-
+conn.commit()
 class Person:
     def __init__(self, N_Id , FullName, Phone):
         self.N_Id = N_Id
