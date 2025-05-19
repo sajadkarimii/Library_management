@@ -36,6 +36,12 @@ class Member(Person):
         cursor.execute(f"UPDATE Members SET FullName = '{self.FullName}' , PNumber = '{self.Phone}' , Join_Date = '{self.join_date}' WHERE N_Id = '{self.N_Id}'")
         conn.commit()
 
+    def search_member(self):
+        cursor.execute(f"SELECT * FROM Members WHERE FullName = '{self.FullName}'")
+        for row in cursor.fetchall():
+            print(row)
+        
+
 def main():
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -52,7 +58,7 @@ def main():
             case "2":
                 while True:
                     os.system('cls' if os.name == 'nt' else 'clear')
-                    print("""1: Add member\n2: Update member\n3: Show members\n4: Delete member\n5: main page""")
+                    print("""1: Add member\n2: Update member\n3: Show members\n4: Delete member\n5: Search member \n6: Main page""")
                     x = input("Choose an option : ")
                     if (x == '1'):
                         os.system('cls' if os.name == 'nt' else 'clear')
@@ -79,7 +85,13 @@ def main():
                         n_id = input("Enter member's National number : ")
                         new_member = Member(n_id,'','','')
                         new_member.delete_member()
-                    elif(x == '5'):
+                    elif (x == '5'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        fullname = input("Enter member's FullName : ")
+                        new_member = Member('',fullname,'','')
+                        new_member.search_member()
+                        time.sleep(5)
+                    elif(x == '6'):
                         break
             case "3":
                 os.system('cls' if os.name == 'nt' else 'clear')
