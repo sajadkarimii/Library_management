@@ -5,29 +5,37 @@ import time
 # Connect to sqlite3
 conn = sqlite3.connect("library_mange.db")
 cursor = conn.cursor()
+
 class Book:
     def __init__(self,Book_Name,Publisher,Author,Genre,Quantity):
-        self.Book_name = Book_Name
+        self.Book_Name = Book_Name
         self.Publisher = Publisher
         self.Author = Author
         self.Genre = Genre
         self.Quantity = Quantity
+    
     def add_book(self):
-        cursor.execute(f"INSERT INTO Books(Book_Name,Publisher,Author,Genre,Quantity) values('{self.Book_Name}','{self.Publisher}','{self.Author}','{self.Genre}',{self.Quantity}")
-        conn.commit()
-    def delete_book(self,book_name):
-        cursor.execute(f"DELETE FROM Books WHERE Book_Name = '{book_name}'")
-        conn.commit()
-    def show_book(self):
-        cursor.execute(f"SELECT * FROM Books")
-        conn.commit()
-    def search_book(self):
-        cursor.execute(f"SELECT * FROM Books WHERE Book_name = '{self.Book_name}'")
-        conn.commit()
-    def update_book(self):
-        cursor.execute(f"UPDATE Books SET Book_Name = {self.Book_name} , Publisher = {self.Publisher} , Author = {self.Author} , Genre = {self.Genre} , Quantity = {self.Quantity} WHERE Book_Name = {self.Book_name}  ")
+        cursor.execute(f"INSERT INTO Books(Book_Name,Publisher,Author,Genre,Quantity) VALUES ('{self.Book_Name}','{self.Publisher}','{self.Author}','{self.Genre}',{self.Quantity})")
         conn.commit()
 
+    def delete_book(self):
+        cursor.execute(f"DELETE FROM Books WHERE Book_Name = '{self.Book_Name}'")
+        conn.commit()
+    
+    def show_book(self):
+        cursor.execute(f"SELECT * FROM Books")
+        for row in cursor.fetchall():
+            print(row)
+    
+    def update_book(self,book_name):
+        cursor.execute(f"UPDATE Books SET Book_Name = '{self.Book_Name}' , Publisher = '{self.Publisher}' , Author = '{self.Author}' , Genre = '{self.Genre}' , Quantity = {self.Quantity} WHERE Book_Name = '{book_name}'  ")
+        conn.commit()
+
+    def search_book(self):
+        cursor.execute(f"SELECT * FROM Books WHERE Book_Name LIKE ?", (f"%{self.Book_Name}%",))
+        for row in cursor.fetchall():
+            print(row)
+    
 
 class Person:
     def __init__(self, N_Id , FullName, Phone):
@@ -50,7 +58,6 @@ class Member(Person):
         conn.commit()
     
     def show_members(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
         cursor.execute(f"SELECT * FROM Members")
         for row in cursor.fetchall():
             print(row)
@@ -60,7 +67,7 @@ class Member(Person):
         conn.commit()
 
     def search_member(self):
-        cursor.execute(f"SELECT * FROM Members WHERE FullName = '{self.FullName}'")
+        cursor.execute(f"SELECT * FROM Members WHERE FullName LIKE ?", (f"%{self.FullName}%",))
         for row in cursor.fetchall():
             print(row)
         
@@ -68,20 +75,55 @@ class Member(Person):
 def main():
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print("""1: Books mangement\n2: Members management\n3: Borrowed management\n4: Exit""")
+        print("1: Books mangement\n2: Members management\n3: Borrowed management\n4: Exit")
         x = input("Choose an option : ")
         match x:
             case "1":
                 while True:
                     os.system('cls' if os.name == 'nt' else 'clear')
-                    print("""1: Add book\n2: Update book\n3: Show books\n4: Delete book\n5: main page""")
+                    print("1: Add book\n2: Update book\n3: Show books\n4: Delete book\n5: Search book\n6: main page")
                     x = input("Choose an option : ")
-                    if(x=='5'):
+                    if (x == '1'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        bookname = input("Enter Book Name: ")
+                        publisher = input("Enter Publisher: ")
+                        author = input("Enter Author Name: ")
+                        genre = input("Enter Genre: ")
+                        quantity = int(input("Enter Quantity: "))
+                        new_book = Book(bookname,publisher,author,genre,quantity)
+                        new_book.add_book()
+                    elif (x == '2'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        bookname = input("Enter Book Name you want to edit : ")
+                        bookname1 = input("Enter edited Book Name: ")
+                        publisher = input("Enter edited Publisher: ")
+                        author = input("Enter edited Author Name: ")
+                        genre = input("Enter edited Genre: ")
+                        quantity = input("Enter edited Quantity: ")
+                        new_book = Book(bookname1,publisher,author,genre,quantity)
+                        new_book.update_book(bookname)
+                    elif (x == '3'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        new_book = Book('','','','','')
+                        new_book.show_book()
+                        time.sleep(5)
+                    elif (x == '4'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        bookname = input("Enter book name to delete: ")
+                        new_book = Book(bookname,'','','','')
+                        new_book.delete_book()
+                    elif (x == '5'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        bookname = input("Enter book name to search : ")
+                        new_book = Book(bookname,'','','','')
+                        new_book.search_book()
+                        time.sleep(5)
+                    elif(x == '6'):
                         break
             case "2":
                 while True:
                     os.system('cls' if os.name == 'nt' else 'clear')
-                    print("""1: Add member\n2: Update member\n3: Show members\n4: Delete member\n5: Search member \n6: Main page""")
+                    print("1: Add member\n2: Update member\n3: Show members\n4: Delete member\n5: Search member \n6: Main page")
                     x = input("Choose an option : ")
                     if (x == '1'):
                         os.system('cls' if os.name == 'nt' else 'clear')
@@ -100,6 +142,7 @@ def main():
                         new_member = Member(n_id,name,pnumber,jdate)
                         new_member.update_member()
                     elif (x == '3'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         new_member = Member('','','','')
                         new_member.show_members()
                         time.sleep(5)
