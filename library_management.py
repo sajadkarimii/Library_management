@@ -5,6 +5,29 @@ import time
 # Connect to sqlite3
 conn = sqlite3.connect("library_mange.db")
 cursor = conn.cursor()
+class Book:
+    def __init__(self,Book_Name,Publisher,Author,Genre,Quantity):
+        self.Book_name = Book_Name
+        self.Publisher = Publisher
+        self.Author = Author
+        self.Genre = Genre
+        self.Quantity = Quantity
+    def add_book(self):
+        cursor.execute(f"INSERT INTO Books(Book_Name,Publisher,Author,Genre,Quantity) values('{self.Book_Name}','{self.Publisher}','{self.Author}','{self.Genre}',{self.Quantity}")
+        conn.commit()
+    def delete_book(self,book_name):
+        cursor.execute(f"DELETE FROM Books WHERE Book_Name = '{book_name}'")
+        conn.commit()
+    def show_book(self):
+        cursor.execute(f"SELECT * FROM Books")
+        conn.commit()
+    def search_book(self):
+        cursor.execute(f"SELECT * FROM Books WHERE Book_name = '{self.Book_name}'")
+        conn.commit()
+    def update_book(self):
+        cursor.execute(f"UPDATE Books SET Book_Name = {self.Book_name} , Publisher = {self.Publisher} , Author = {self.Author} , Genre = {self.Genre} , Quantity = {self.Quantity} WHERE Book_Name = {self.Book_name}  ")
+        conn.commit()
+
 
 class Person:
     def __init__(self, N_Id , FullName, Phone):
