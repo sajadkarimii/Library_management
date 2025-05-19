@@ -1,4 +1,6 @@
 import sqlite3
+import os
+import time
 
 # Connect to sqlite3
 conn = sqlite3.connect("library_mange.db")
@@ -17,42 +19,72 @@ class Member(Person):
         self.join_date = join_date
 
     def add_member(self):
-        cursor.execute(f"INSERT INTO Members VALUES ('{self.N_Id}','{self.FullName}','{self.Phone}','{self.join_date}')")
+        cursor.execute(f"INSERT INTO Members(N_Id,FullName,PNumber,Join_Date) VALUES ('{self.N_Id}','{self.FullName}','{self.Phone}','{self.join_date}')")
         conn.commit()
 
+    def delete_member(self):
+        cursor.execute(f"DELETE FROM Members WHERE N_Id = '{self.N_Id}'")
+        conn.commit()
+    
+    def show_members(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+        cursor.execute(f"SELECT * FROM Members")
+        for row in cursor.fetchall():
+            print(row)
+
+    def update_member(self):
+        cursor.execute(f"UPDATE Members SET FullName = '{self.FullName}' , PNumber = '{self.Phone}' , Join_Date = '{self.join_date}' WHERE N_Id = '{self.N_Id}'")
+        conn.commit()
 
 def main():
     while True:
-        print("""1: Show books
-2: Add book
-3: Delete book
-4: Add member
-5: Exit""")
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("""1: Books mangement\n2: Members management\n3: Borrowed management\n4: Exit""")
         x = input("Choose an option : ")
         match x:
             case "1":
-                cursor.execute("SELECT * FROM Books")
-                for row in cursor.fetchall():
-                    print(row)
+                while True:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print("""1: Add book\n2: Update book\n3: Show books\n4: Delete book\n5: main page""")
+                    x = input("Choose an option : ")
+                    if(x=='5'):
+                        break
             case "2":
-                name = input("Enter name of the book : ")
-                nop = input("Enter number of pages : ")
-                pub = input("Enter publisher's name : ")
-                auth = input("Enter Author's name : ")
-                cursor.execute(f"INSERT INTO Books(Book_Name,NOP,Publisher,Author) VALUES ('{name}',{nop},'{pub}','{auth}')")
-                conn.commit()
+                while True:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print("""1: Add member\n2: Update member\n3: Show members\n4: Delete member\n5: main page""")
+                    x = input("Choose an option : ")
+                    if (x == '1'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        n_id = input("Enter member's National number : ")
+                        name = input("Enter member's full name : ")
+                        pnumber = input("Enter member's phone nubmer : ")
+                        jdate = input("Enter join date(yyyy-mm-dd) : ")
+                        new_member = Member(n_id,name,pnumber,jdate)
+                        new_member.add_member()
+                    elif (x == '2'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        n_id = input("Enter member's National number : ")
+                        name = input("Enter edited member's full name : ")
+                        pnumber = input("Enter edited member's phone nubmer : ")
+                        jdate = input("Enter edited join date(yyyy-mm-dd) : ")
+                        new_member = Member(n_id,name,pnumber,jdate)
+                        new_member.update_member()
+                    elif (x == '3'):
+                        new_member = Member('','','','')
+                        new_member.show_members()
+                        time.sleep(5)
+                    elif (x == '4'):
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        n_id = input("Enter member's National number : ")
+                        new_member = Member(n_id,'','','')
+                        new_member.delete_member()
+                    elif(x == '5'):
+                        break
             case "3":
-                id = int(input("Enter Book's id : "))
-                cursor.execute(f"DELETE FROM Books WHERE Id={id}")
-                conn.commit()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                pass
             case "4":
-                n_id = input("Enter your National number : ")
-                name = input("Enter your full name : ")
-                pnumber = input("Enter your phone nubmer : ")
-                jdate = input("Enter join date(mm/dd/yyyy) : ")
-                new_member = Member(n_id,name,pnumber,jdate)
-                new_member.add_member()
-            case "5":
                 break
 
 if __name__ == "__main__":
