@@ -1,27 +1,61 @@
-# پروژه مدیریت کتابخانه
+📚 Library Management System
+📝 Project Overview
+We, Ahmad Siyar Hamidi and Sajad Karimi, collaboratively designed and developed this Library Management System to provide a simple, fast, and efficient way to manage books, library members, and the lending process.
 
-## معرفی پروژه  
-ما، احمد سیر حمیدی و سجاد کریمی، با همکاری هم این پروژه رو برای مدیریت کتابخانه طراحی کردیم. هدف ما ایجاد یک سامانه ساده، سریع و کارآمد برای ثبت کتاب‌ها، مدیریت اعضا و کنترل امانت‌دهی کتاب‌ها بود تا کار کتابدارها و اعضا راحت‌تر بشه.  
-خوشحالیم که تونستیم این پروژه رو به صورت تیمی و با تلاش مشترک پیش ببریم و از هر فرصتی برای یادگیری و بهبود استفاده کنیم.
+Our goal was to create a user-friendly and reliable system that simplifies the librarian’s tasks and improves the experience for library members. We're proud to have worked on this project as a team and to have used every opportunity for learning and improvement along the way.
 
-## ویژگی‌ها  
-- ذخیره اطلاعات کامل کتاب‌ها شامل نام، ناشر، نویسنده، ژانر و تعداد موجودی  
-- ثبت اطلاعات دقیق اعضای کتابخانه با کد ملی و شماره تماس معتبر  
-- پیگیری امانت کتاب‌ها با تاریخ قرض و بازگشت  
-- روابط بین جداول برای حفظ صحت داده‌ها و جلوگیری از مشکلات احتمالی  
-- ساختار کد ساده و قابل توسعه برای آینده
+✨ Features
+Store complete information about books, including:
 
-## ساختار پایگاه داده  
-- جدول **Books**: اطلاعات کتاب‌ها  
-- جدول **Members**: اطلاعات اعضا  
-- جدول **Borrowed**: ثبت تراکنش‌های امانت و بازگشت
+Title
 
-- ## نحوه استفاده  
-1. ایجاد و تنظیم جداول پایگاه داده  
-2. وارد کردن داده‌های اولیه (کتاب‌ها و اعضا)  
-3. مدیریت فرآیند امانت و بازگشت کتاب‌ها  
-4. امکان توسعه و افزودن قابلیت‌های جدید
+Author
 
-این پروژه نتیجه همکاری، تلاش و یادگیری مشترک ماست و امیدواریم در پروژه‌های بعدی هم با همین انرژی ادامه بدیم.
+Publisher
 
-ایمیل: sajad.ssthm.k@gmail.com   |   ahmadsiarhamidi298@gmail.com
+Genre
+
+Quantity in stock
+
+Register library members with:
+
+Full name
+
+National ID
+
+Valid contact number
+
+Track book lending and returns:
+
+Borrow date
+
+Return date
+
+Use of relational database tables to ensure data integrity and prevent inconsistencies
+
+Clean and modular code structure for easy maintenance and future expansion
+
+🗃️ Database Structure
+Books Table – stores detailed information about each book
+
+Members Table – stores personal details of each registered member
+
+Borrowed Table – logs all borrowing and return transactions
+
+⚙️ How to Use
+Set up the database and create the necessary tables
+
+Insert initial data: add books and register members
+
+Manage the lending process: borrow and return books with proper tracking
+
+Extend functionality: easily add new features and modules as needed
+
+🤝 Teamwork
+This project is the result of collaborative effort, mutual learning, and shared commitment. We look forward to building more projects together with the same passion and teamwork.
+
+📬 Contact
+Sajad Karimi – sajad.ssthm.k@gmail.com
+
+Ahmad Siyar Hamidi – ahmadsiarhamidi298@gmail.com
+
