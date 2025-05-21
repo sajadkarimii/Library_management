@@ -22,6 +22,35 @@ class Librarian:
             if (self.login()):
                 return True
 
+class Borrowed:
+    def __init__(self,Id_Members,Id_Books,Borrowed_Date,Respite,Returned):
+        self.Id_Members = Id_Members
+        self.Id_Books = Id_Books
+        self.Borrowed_Date = Borrowed_Date
+        self.Respite = Respite
+        self.Returned = Returned
+
+    def add_borrow(self):
+        cursor.execute(f"INSERT INTO Borrowed(Id_Member,Id_Books,Borrowed_Date,Respite,Returned) VALUES ({self.Id_Members},{self.Id_Books},'{self.Borrowed_Date}',{self.Respite},'{self.Returned}')")
+        conn.commit()
+    
+    def update_borrow(self,Id):
+        cursor.execute(f"UPDATE Borrowed SET Id_Members = {self.Id_Members}, Id_Books = {self.Id_Books}, Borrowed_Date = '{self.Borrowed_Date}', Respite = {self.Respite}, Returned = '{self.Returned}')")
+        conn.commit()
+    
+    def show_borrow(self):
+        cursor.execute(f"SELECT * FROM Borrowed")
+        for row in cursor.fetchall():
+            print(row)
+    
+    def delete_borrow(self,Id):
+        cursor.execute(f"DELETE FROM Borrowed WHERE Id={Id}")
+        conn.commit()
+    
+    def search_borrow(self):
+        cursor.execute(f"SELECT Borrowed.Id,FullName,Book_Name,Borrowed_Date,Respite,Returned FROM Borrowed,Members,Books WHERE Id_Member = {self.Id_Members} and  Id_Member = Members.Id and Id_Books = Books.Id")
+        for row in cursor.fetchall():
+            print(row)
 
 class Book:
     def __init__(self,Book_Name,Publisher,Author,Genre,Quantity):
@@ -179,8 +208,47 @@ def main():
                         elif(x == '6'):
                             break
                 case "3":
-                    os.system('cls' if os.name == 'nt' else 'clear')
-                    pass
+                    while True:
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print("1: Add Borrow\n2: Update Borrow\n3: Show Borrow\n4: Delete Borrow\n5: Search Borrow \n6: Main page")
+                        x = input("Choose an option : ")
+                        if (x == '1'):
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            member_id = int(input("Enter member's id : "))
+                            book_id = int(input("Enter book's id : "))
+                            borrowdate = input("Enter borrow date(yyyy-mm-dd) : ")
+                            respite = int(input("Enter respite : "))
+                            returned = input("Enter returned date : ")
+                            new_Borrow = Borrowed(member_id,book_id,borrowdate,respite,returned)
+                            new_Borrow.add_borrow()
+                        elif (x == '2'):
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            id = int(input("Enter borrow id : "))
+                            member_id = int(input("Enter member's id : "))
+                            book_id = int(input("Enter book's id : "))
+                            borrowdate = input("Enter borrow date(yyyy-mm-dd) : ")
+                            respite = int(input("Enter respite : "))
+                            returned = input("Enter returned date : ")
+                            new_Borrow = Borrowed(member_id,book_id,borrowdate,respite,returned)
+                            new_Borrow.update_borrow(id)
+                        elif (x == '3'):
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            new_Borrow = Borrowed('','','','','')
+                            new_Borrow.show_borrow()
+                            time.sleep(5)
+                        elif (x == '4'):
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            id = int(input("Enter borrow id you want to delete: "))
+                            new_Borrow = Borrowed('','','','','')
+                            new_Borrow.delete_borrow(id)
+                        elif (x == '5'):
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            member_id = int(input("Enter member's id : "))
+                            new_Borrow = Borrowed(member_id,'','','','')
+                            new_Borrow.search_borrow()
+                            time.sleep(5)
+                        elif(x == '6'):
+                            break
                 case "4":
                     break
 
