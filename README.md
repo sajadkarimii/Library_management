@@ -57,5 +57,5 @@ This project is the result of collaborative effort, mutual learning, and shared 
 📬 Contact
 Sajad Karimi – sajad.ssthm.k@gmail.com
 
-Ahmad Siyar Hamidi – ahmadsiarhamidi298@gmail.com
+Ahmad Siar Hamidi – ahmadsiarhamidi298@gmail.com
 
