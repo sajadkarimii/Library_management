@@ -110,9 +110,13 @@ class Member(Person):
             print(row)
 
 
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
 def main():
     while True:
-        os.system("cls" if os.name == "nt" else "clear")
+        clear_screen()
         print(
             "1: Books mangement\n2: Members management\n3: Borrowed management\n4: Exit"
         )
@@ -120,22 +124,35 @@ def main():
         match x:
             case "1":
                 while True:
-                    os.system("cls" if os.name == "nt" else "clear")
+                    clear_screen()
                     print(
                         "1: Add book\n2: Update book\n3: Show books\n4: Delete book\n5: Search book\n6: main page"
                     )
                     x = input("Choose an option : ")
                     if x == "1":
-                        os.system("cls" if os.name == "nt" else "clear")
-                        bookname = input("Enter Book Name: ")
-                        publisher = input("Enter Publisher: ")
-                        author = input("Enter Author Name: ")
-                        genre = input("Enter Genre: ")
-                        quantity = int(input("Enter Quantity: "))
-                        new_book = Book(bookname, publisher, author, genre, quantity)
-                        new_book.add_book()
+                        clear_screen()
+                        genre_book = {
+                            "1": MathBook,
+                            "2": NovelBook,
+                            "3": RomanticBook,
+                            "4": ScientificBook,
+                            "5": ExperimentalBook,
+                        }
+                        print(
+                            "1: MathBook\n2: NovelBook\n3: RomanticBook\n4: ScientificBook\n5: ExperimentalBook"
+                        )
+                        y = input("Please first, choose a genre: ")
+                        if y in genre_book:
+                            clear_screen()
+                            bookname = input("Enter Book Name: ")
+                            publisher = input("Enter Publisher: ")
+                            author = input("Enter Author Name: ")
+                            quantity = int(input("Enter Quantity: "))
+                            bk = genre_book[y]
+                            new_book = bk(bookname, publisher, author, quantity)
+                            new_book.add_book()
                     elif x == "2":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         bookname = input("Enter Book Name you want to edit : ")
                         bookname1 = input("Enter edited Book Name: ")
                         publisher = input("Enter edited Publisher: ")
@@ -145,17 +162,17 @@ def main():
                         new_book = Book(bookname1, publisher, author, genre, quantity)
                         new_book.update_book(bookname)
                     elif x == "3":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         new_book = Book("", "", "", "", "")
                         new_book.show_book()
                         time.sleep(5)
                     elif x == "4":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         bookname = input("Enter book name to delete: ")
                         new_book = Book(bookname, "", "", "", "")
                         new_book.delete_book()
                     elif x == "5":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         bookname = input("Enter book name to search : ")
                         new_book = Book(bookname, "", "", "", "")
                         new_book.search_book()
@@ -164,13 +181,13 @@ def main():
                         break
             case "2":
                 while True:
-                    os.system("cls" if os.name == "nt" else "clear")
+                    clear_screen()
                     print(
                         "1: Add member\n2: Update member\n3: Show members\n4: Delete member\n5: Search member \n6: Main page"
                     )
                     x = input("Choose an option : ")
                     if x == "1":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         n_id = input("Enter member's National number : ")
                         name = input("Enter member's full name : ")
                         pnumber = input("Enter member's phone nubmer : ")
@@ -178,7 +195,7 @@ def main():
                         new_member = Member(n_id, name, pnumber, jdate)
                         new_member.add_member()
                     elif x == "2":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         n_id = input("Enter member's National number : ")
                         name = input("Enter edited member's full name : ")
                         pnumber = input("Enter edited member's phone nubmer : ")
@@ -186,17 +203,17 @@ def main():
                         new_member = Member(n_id, name, pnumber, jdate)
                         new_member.update_member()
                     elif x == "3":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         new_member = Member("", "", "", "")
                         new_member.show_members()
                         time.sleep(5)
                     elif x == "4":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         n_id = input("Enter member's National number : ")
                         new_member = Member(n_id, "", "", "")
                         new_member.delete_member()
                     elif x == "5":
-                        os.system("cls" if os.name == "nt" else "clear")
+                        clear_screen()
                         fullname = input("Enter member's FullName : ")
                         new_member = Member("", fullname, "", "")
                         new_member.search_member()
@@ -204,7 +221,7 @@ def main():
                     elif x == "6":
                         break
             case "3":
-                os.system("cls" if os.name == "nt" else "clear")
+                clear_screen()
                 pass
             case "4":
                 break
