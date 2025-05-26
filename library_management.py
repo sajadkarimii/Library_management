@@ -39,7 +39,7 @@ class Borrowed:
         conn.commit()
     
     def show_borrow(self):
-        cursor.execute(f"SELECT * FROM Borrowed")
+        cursor.execute(f"SELECT Borrowed.Id,FullName,Book_Name,Borrowed_Date,Respite,Returned FROM Borrowed,Members,Books WHERE Id_Member = Members.Id and Id_Books = Books.Id")
         for row in cursor.fetchall():
             print(row)
     
