@@ -60,7 +60,8 @@ def main():
                         elif x == "3":
                             clear_screen()
                             new_book = Book("", "", "", "", "")
-                            new_book.show_book()
+                            for book in new_book.show_book():
+                                print(book)
                             time.sleep(5)
                         elif x == "4":
                             clear_screen()
@@ -71,7 +72,8 @@ def main():
                             clear_screen()
                             bookname = input("Enter book name to search : ")
                             new_book = Book(bookname, "", "", "", "")
-                            new_book.search_book()
+                            for book in new_book.search_book():
+                                print(book)
                             time.sleep(5)
                         elif x == "6":
                             break
@@ -101,7 +103,8 @@ def main():
                         elif x == "3":
                             clear_screen()
                             new_member = Member("", "", "", "")
-                            new_member.show_members()
+                            for member in new_member.show_members():
+                                print(member)
                             time.sleep(5)
                         elif x == "4":
                             clear_screen()
@@ -112,7 +115,8 @@ def main():
                             clear_screen()
                             fullname = input("Enter member's FullName : ")
                             new_member = Member("", fullname, "", "")
-                            new_member.search_member()
+                            for member in new_member.search_member():
+                                print(member)
                             time.sleep(5)
                         elif x == "6":
                             break
@@ -143,7 +147,8 @@ def main():
                         elif (x == '3'):
                             clear_screen()
                             new_Borrow = Borrowed('','','','','')
-                            new_Borrow.show_borrow()
+                            for borrow in new_Borrow.show_borrow():
+                                print(borrow)
                             time.sleep(5)
                         elif (x == '4'):
                             clear_screen()
@@ -154,7 +159,8 @@ def main():
                             clear_screen()
                             member_id = int(input("Enter member's id : "))
                             new_Borrow = Borrowed(member_id,'','','','')
-                            new_Borrow.search_borrow()
+                            for borrow in new_Borrow.search_borrow():
+                                print(borrow)
                             time.sleep(5)
                         elif(x == '6'):
                             break

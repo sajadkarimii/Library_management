@@ -23,11 +23,11 @@ class Member(Person):
             db.cursor.execute("DELETE FROM Members WHERE N_Id = ?", (self.N_Id,))
             db.conn.commit()
 
-    def show_members(self):
+    @staticmethod
+    def show_members():
         with DB() as db:
             db.cursor.execute("SELECT * FROM Members")
-            for row in db.cursor.fetchall():
-                print(row)
+            return db.cursor.fetchall()
 
     def update_member(self):
         with DB() as db:
@@ -37,5 +37,4 @@ class Member(Person):
     def search_member(self):
         with DB() as db:
             db.cursor.execute("SELECT * FROM Members WHERE FullName LIKE ?", (f"%{self.FullName}%",))
-            for row in db.cursor.fetchall():
-                print(row)
+            return db.cursor.fetchall()

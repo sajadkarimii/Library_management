@@ -18,11 +18,11 @@ class Book:
             db.cursor.execute("DELETE FROM Books WHERE Book_Name = ?",(self.Book_Name,))
             db.conn.commit()
 
-    def show_book(self):
+    @staticmethod
+    def show_book():
         with DB() as db:
             db.cursor.execute("SELECT * FROM Books")
-            for row in db.cursor.fetchall():
-                print(row)
+            return db.cursor.fetchall()
 
     def update_book(self, book_name):
         with DB() as db:
@@ -32,8 +32,7 @@ class Book:
     def search_book(self):
         with DB() as db:
             db.cursor.execute("SELECT * FROM Books WHERE Book_Name LIKE ?", (f"%{self.Book_Name}%",))
-            for row in db.cursor.fetchall():
-                print(row)
+            return db.cursor.fetchall()
 
 
 class MathBook(Book):
