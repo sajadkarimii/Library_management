@@ -1,163 +1,12 @@
-import sqlite3
 import os
 import time
-
-# Connect to sqlite3
-conn = sqlite3.connect("library_mange.db")
-cursor = conn.cursor()
-
-class Librarian:
-    def __init__(self,FullName='sajad karimi',UserName='sajad',Password='2233123'):
-        self.FullName = FullName
-        self.UserName = UserName
-        self.Password = Password
-
-    def login(self):
-        clear_screen()
-        username = input("Enter username :")
-        password = input("Enter password :")
-        if (username == self.UserName and password == self.Password):
-            return True
-        else:
-            if (self.login()):
-                return True
-
-class Borrowed:
-    def __init__(self,Id_Members,Id_Books,Borrowed_Date,Respite,Returned):
-        self.Id_Members = Id_Members
-        self.Id_Books = Id_Books
-        self.Borrowed_Date = Borrowed_Date
-        self.Respite = Respite
-        self.Returned = Returned
-
-    def add_borrow(self):
-        cursor.execute(f"INSERT INTO Borrowed(Id_Member,Id_Books,Borrowed_Date,Respite,Returned) VALUES ({self.Id_Members},{self.Id_Books},'{self.Borrowed_Date}',{self.Respite},'{self.Returned}')")
-        conn.commit()
-    
-    def update_borrow(self,Id):
-        cursor.execute(f"UPDATE Borrowed SET Id_Members = {self.Id_Members}, Id_Books = {self.Id_Books}, Borrowed_Date = '{self.Borrowed_Date}', Respite = {self.Respite}, Returned = '{self.Returned}')")
-        conn.commit()
-    
-    def show_borrow(self):
-        cursor.execute(f"SELECT Borrowed.Id,FullName,Book_Name,Borrowed_Date,Respite,Returned FROM Borrowed,Members,Books WHERE Id_Member = Members.Id and Id_Books = Books.Id")
-        for row in cursor.fetchall():
-            print(row)
-    
-    def delete_borrow(self,Id):
-        cursor.execute(f"DELETE FROM Borrowed WHERE Id={Id}")
-        conn.commit()
-    
-    def search_borrow(self):
-        cursor.execute(f"SELECT Borrowed.Id,FullName,Book_Name,Borrowed_Date,Respite,Returned FROM Borrowed,Members,Books WHERE Id_Member = {self.Id_Members} and  Id_Member = Members.Id and Id_Books = Books.Id")
-        for row in cursor.fetchall():
-            print(row)
-
-class Book:
-    def __init__(self, Book_Name, Publisher, Author, Genre, Quantity):
-        self.Book_Name = Book_Name
-        self.Publisher = Publisher
-        self.Author = Author
-        self.Genre = Genre
-        self.Quantity = Quantity
-
-    def add_book(self):
-        cursor.execute(
-            f"INSERT INTO Books(Book_Name,Publisher,Author,Genre,Quantity) VALUES ('{self.Book_Name}','{self.Publisher}','{self.Author}','{self.Genre}',{self.Quantity})"
-        )
-        conn.commit()
-
-    def delete_book(self):
-        cursor.execute(f"DELETE FROM Books WHERE Book_Name = '{self.Book_Name}'")
-        conn.commit()
-
-    def show_book(self):
-        cursor.execute(f"SELECT * FROM Books")
-        for row in cursor.fetchall():
-            print(row)
-
-    def update_book(self, book_name):
-        cursor.execute(
-            f"UPDATE Books SET Book_Name = '{self.Book_Name}' , Publisher = '{self.Publisher}' , Author = '{self.Author}' , Genre = '{self.Genre}' , Quantity = {self.Quantity} WHERE Book_Name = '{book_name}'  "
-        )
-        conn.commit()
-
-    def search_book(self):
-        cursor.execute(
-            f"SELECT * FROM Books WHERE Book_Name LIKE ?", (f"%{self.Book_Name}%",)
-        )
-        for row in cursor.fetchall():
-            print(row)
-
-
-class MathBook(Book):
-    def __init__(self, Book_Name, Publisher, Author, Quantity):
-        super().__init__(Book_Name, Publisher, Author, "Math", Quantity)
-
-
-class NovelBook(Book):
-    def __init__(self, Book_Name, Publisher, Author, Quantity):
-        super().__init__(Book_Name, Publisher, Author, "Novel", Quantity)
-
-
-class RomanticBook(Book):
-    def __init__(self, Book_Name, Publisher, Author, Quantity):
-        super().__init__(Book_Name, Publisher, Author, "Romantic", Quantity)
-
-
-class ScientificBook(Book):
-    def __init__(self, Book_Name, Publisher, Author, Quantity):
-        super().__init__(Book_Name, Publisher, Author, "Scientific", Quantity)
-
-
-class ExperimentalBook(Book):
-    def __init__(self, Book_Name, Publisher, Author, Quantity):
-        super().__init__(Book_Name, Publisher, Author, "Experimental", Quantity)
-
-
-class Person:
-    def __init__(self, N_Id, FullName, Phone):
-        self.N_Id = N_Id
-        self.FullName = FullName
-        self.Phone = Phone
-
-
-class Member(Person):
-    def __init__(self, N_Id, FullName, Phone, join_date):
-        super().__init__(N_Id, FullName, Phone)
-        self.join_date = join_date
-
-    def add_member(self):
-        cursor.execute(
-            f"INSERT INTO Members(N_Id,FullName,PNumber,Join_Date) VALUES ('{self.N_Id}','{self.FullName}','{self.Phone}','{self.join_date}')"
-        )
-        conn.commit()
-
-    def delete_member(self):
-        cursor.execute(f"DELETE FROM Members WHERE N_Id = '{self.N_Id}'")
-        conn.commit()
-
-    def show_members(self):
-        cursor.execute(f"SELECT * FROM Members")
-        for row in cursor.fetchall():
-            print(row)
-
-    def update_member(self):
-        cursor.execute(
-            f"UPDATE Members SET FullName = '{self.FullName}' , PNumber = '{self.Phone}' , Join_Date = '{self.join_date}' WHERE N_Id = '{self.N_Id}'"
-        )
-        conn.commit()
-
-    def search_member(self):
-        cursor.execute(
-            f"SELECT * FROM Members WHERE FullName LIKE ?", (f"%{self.FullName}%",)
-        )
-        for row in cursor.fetchall():
-            print(row)
-
+from models.Librarian import Librarian
+from models.Borrow import Borrowed
+from models.Books import *
+from models.Members import *
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
-
 
 def main():
     login = Librarian()
@@ -311,7 +160,6 @@ def main():
                             break
                 case "4":
                     break
-
 
 if __name__ == "__main__":
     main()
