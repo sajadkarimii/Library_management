@@ -9,30 +9,45 @@ class Book:
         self.Quantity = Quantity
 
     def add_book(self):
-        with DB() as db:
-            db.cursor.execute("INSERT INTO Books(Book_Name,Publisher,Author,Genre,Quantity) VALUES (?,?,?,?,?)",(self.Book_Name,self.Publisher,self.Author,self.Genre,self.Quantity,))
-            db.conn.commit()
+        try:
+            with DB() as db:
+                db.cursor.execute("INSERT INTO Books(Book_Name,Publisher,Author,Genre,Quantity) VALUES (?,?,?,?,?)",(self.Book_Name,self.Publisher,self.Author,self.Genre,self.Quantity,))
+                db.conn.commit()
+        except:
+            pass
 
     def delete_book(self):
-        with DB() as db:
-            db.cursor.execute("DELETE FROM Books WHERE Book_Name = ?",(self.Book_Name,))
-            db.conn.commit()
+        try:
+            with DB() as db:
+                db.cursor.execute("DELETE FROM Books WHERE Book_Name = ?",(self.Book_Name,))
+                db.conn.commit()
+        except:
+            pass
 
     @staticmethod
     def show_book():
-        with DB() as db:
-            db.cursor.execute("SELECT * FROM Books")
-            return db.cursor.fetchall()
+        try:
+            with DB() as db:
+                db.cursor.execute("SELECT * FROM Books")
+                return db.cursor.fetchall()
+        except:
+            pass
 
     def update_book(self, book_name):
-        with DB() as db:
-            db.cursor.execute("UPDATE Books SET Book_Name = ?, Publisher = ? , Author = ? , Genre = ? , Quantity = ? WHERE Book_Name = ?"(self.Book_Name,self.Publisher,self.Author,self.Genre,self.Quantity,book_name,))
-            db.conn.commit()
+        try:
+            with DB() as db:
+                db.cursor.execute("UPDATE Books SET Book_Name = ?, Publisher = ? , Author = ? , Genre = ? , Quantity = ? WHERE Book_Name = ?"(self.Book_Name,self.Publisher,self.Author,self.Genre,self.Quantity,book_name,))
+                db.conn.commit()
+        except:
+            pass
 
     def search_book(self):
-        with DB() as db:
-            db.cursor.execute("SELECT * FROM Books WHERE Book_Name LIKE ?", (f"%{self.Book_Name}%",))
-            return db.cursor.fetchall()
+        try:
+            with DB() as db:
+                db.cursor.execute("SELECT * FROM Books WHERE Book_Name LIKE ?", (f"%{self.Book_Name}%",))
+                return db.cursor.fetchall()
+        except:
+            pass
 
 
 class MathBook(Book):
