@@ -8,6 +8,9 @@ class Book:
         self.Genre = Genre
         self.Quantity = Quantity
 
+    def __str__(self):
+        return f"Book name : {self.Book_Name} , Publisher : {self.Publisher} , Author : {self.Author} , Genre : {self.Genre} , Quantity : {self.Quantity}"
+
     def add_book(self):
         try:
             with DB() as db:

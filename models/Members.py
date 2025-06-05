@@ -13,6 +13,9 @@ class Member(Person):
         super().__init__(N_Id, FullName, Phone)
         self.join_date = join_date
 
+    def __str__(self):
+        return f"National Id : {self.N_Id} , FullName : {self.FullName} , Phone number : {self.Phone} , Join date : {self.join_date}"
+
     def add_member(self):
         try:
             with DB() as db:

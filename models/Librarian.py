@@ -7,14 +7,15 @@ class Librarian:
         self.__UserName = UserName
         self.__Password = Password
 
+    def __str__(self):
+        return f"Hello {self.__FullName} , Have a good day ..."
+
     def login(self):
         os.system("cls" if os.name == "nt" else "clear")
         username = input("Enter username :")
         password = input("Enter password :")
         if (username == self.__UserName and password == self.__Password):
             os.system("cls" if os.name == "nt" else "clear")
-            print(f"Wellcome {self.__FullName}")
-            time.sleep(2)
             return True
         else:
             if (self.login()):

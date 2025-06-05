@@ -8,6 +8,9 @@ class Borrowed:
         self.Respite = Respite
         self.Returned = Returned
 
+    def __str__(self):
+        return f"Member Id : {self.Id_Members} , Book Id : {self.Id_Books} , Date : {self.Borrowed_Date} , Respite : {self.Respite} , Returned : {self.Returned}"
+
     def add_borrow(self):
         try:
             with DB() as db:

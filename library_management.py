@@ -11,6 +11,8 @@ def clear_screen():
 def main():
     login = Librarian()
     if login.login():
+        print(login)
+        time.sleep(2)
         while True:
             clear_screen()
             print(
@@ -46,7 +48,9 @@ def main():
                                 quantity = int(input("Enter Quantity: "))
                                 bk = genre_book[y]
                                 new_book = bk(bookname, publisher, author, quantity)
-                                new_book.add_book()
+                                print(new_book)
+                                if (input("Enter the number 1 to confirm : ")=="1"):
+                                    new_book.add_book()
                         elif x == "2":
                             clear_screen()
                             bookname = input("Enter Book Name you want to edit : ")
@@ -56,7 +60,9 @@ def main():
                             genre = input("Enter edited Genre: ")
                             quantity = input("Enter edited Quantity: ")
                             new_book = Book(bookname1, publisher, author, genre, quantity)
-                            new_book.update_book(bookname)
+                            print(new_book)
+                            if (input("Enter the number 1 to confirm : ")=="1"):
+                                    new_book.update_book(bookname)
                         elif x == "3":
                             clear_screen()
                             new_book = Book("", "", "", "", "")
@@ -91,7 +97,9 @@ def main():
                             pnumber = input("Enter member's phone nubmer : ")
                             jdate = input("Enter join date(yyyy-mm-dd) : ")
                             new_member = Member(n_id, name, pnumber, jdate)
-                            new_member.add_member()
+                            print(new_member)
+                            if (input("Enter the number 1 to confirm : ")=="1"):
+                                    new_member.add_member()
                         elif x == "2":
                             clear_screen()
                             n_id = input("Enter member's National number : ")
@@ -99,7 +107,9 @@ def main():
                             pnumber = input("Enter edited member's phone nubmer : ")
                             jdate = input("Enter edited join date(yyyy-mm-dd) : ")
                             new_member = Member(n_id, name, pnumber, jdate)
-                            new_member.update_member()
+                            print(new_member)
+                            if (input("Enter the number 1 to confirm : ")=="1"):
+                                    new_member.update_member()
                         elif x == "3":
                             clear_screen()
                             new_member = Member("", "", "", "")
@@ -133,7 +143,9 @@ def main():
                             respite = int(input("Enter respite : "))
                             returned = input("Enter returned date : ")
                             new_Borrow = Borrowed(member_id,book_id,borrowdate,respite,returned)
-                            new_Borrow.add_borrow()
+                            print(new_Borrow)
+                            if (input("Enter the number 1 to confirm : ")=="1"):
+                                    new_Borrow.add_borrow()
                         elif (x == '2'):
                             clear_screen()
                             id = int(input("Enter borrow id : "))
@@ -143,7 +155,9 @@ def main():
                             respite = int(input("Enter respite : "))
                             returned = input("Enter returned date : ")
                             new_Borrow = Borrowed(member_id,book_id,borrowdate,respite,returned)
-                            new_Borrow.update_borrow(id)
+                            print(new_Borrow)
+                            if (input("Enter the number 1 to confirm : ")=="1"):
+                                    new_Borrow.update_borrow(id)
                         elif (x == '3'):
                             clear_screen()
                             new_Borrow = Borrowed('','','','','')
